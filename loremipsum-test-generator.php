@@ -73,14 +73,30 @@ class LoremIpsumTestgenerator {
 
     function getSentence() {
         $words = $this->getWords();
+        $randomNumber = rand(6, 10);
         $sentence = '';
 
+        $words[0] = ucfirst($words[0]);
+
         if (count($words) > 0) {
-            for ($i = 0; $i < 24; $i++) {
+            for ($i = 0; $i < $randomNumber; $i++) {
                 $sentence .= $words[$i]." ";
             }
+            $sentence = rtrim($sentence).".";
         }
         return $sentence;
+    }
+
+    function getParagraph() {
+        $randomNumber = rand(3, 5);
+        $paragraph = '';
+        $output = '';
+            for ($j = 0; $j < $randomNumber; $j++) {
+                $paragraph .= $this->getSentence()." ";
+            }
+            $output .= "<p>".$paragraph."</p>";
+
+        return $output;
     }
 }
 
@@ -99,9 +115,15 @@ function lorem_display_shortcode( $atts ) {
 };
 
 add_shortcode('ipsum', 'ipsum_display_shortcode');
-function ipsum_display_shortcode(){
+function ipsum_display_shortcode( $atts ){
+    $number = $atts['number'];
+    $output = '';
+
     $generator = new LoremIpsumTestgenerator();
-    $output = $generator->getSentence();
+    
+    for ($i = 0; $i < $number; $i++){
+        $output .= $generator->getParagraph();
+    }
 
     return $output;
 }
