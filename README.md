@@ -1,10 +1,10 @@
-LoremIpsum Testgenerator V.1.0.0
+# LoremIpsum Testgenerator V.1.0.0
 
 Wichtig:
 
-Das Plugin nutzt die API von http://loripsum.net/ und ist für Testzwecke auf Testinstanzen angedacht.
+Der Shortcode lorem nutzt die API von http://loripsum.net/ und ist für Testzwecke auf Testinstanzen angedacht.
 
-# Shortcodes
+## Shortcode lorem
 
 [lorem number=" " type=" " length=" "]
     
@@ -29,4 +29,15 @@ Das Plugin nutzt die API von http://loripsum.net/ und ist für Testzwecke auf Te
 ## Shortcode ipsum
 
 [ipsum number="1"] generiert einen Paragraphen anhand einer vorgegebenen Liste aus Fach- und Füllwörtern.
+
+## Shortcode unicode
+
+[unicode modus="1" type="default"] generiert je nach Parameter eine Liste von Unicode-Symbolen:
+
+    modus="1" generiert eine Standardpalette von ca. 50 Symbolen
+    modus="2" generiert alle Unicode-Symbole von 1 bis 10.000+
+        type="default" nummeriert die Ausgabe nicht
+        type="debug" nummeriert alle ausgegebenen UnicodeSymbole
+    ___
+
 

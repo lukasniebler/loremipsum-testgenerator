@@ -99,6 +99,26 @@ class LoremIpsumTestgenerator {
 
         return $output;
     }
+
+    function getSpecialCharset($type = 'default', $modus = '1') {
+        if ($modus == 1){
+            $standard = "— – ­ “ & ˆ ¡ ¦ ¨ ¯ ´ ¸ ¿ ˜ ‘ ’ ‚ “ ” „ ‹ › < > ± « » × ÷ ¢ £ ¤ ¥ § © ¬ ® ° µ ¶ · † ‡ ‰ € ¼ ½ ¾ ¹ ² ³ á Á â Â à À å Å ã Ã ä Ä ª æ Æ ç Ç ð Ð é É ê Ê è È ë Ë ƒ í Í î Î ì Ì ï Ï ñ Ñ ó Ó ô Ô ò Ò º ø Ø õ Õ ö Ö œ Œ š Š ß þ Þ ú Ú û Û ù Ù ü Ü ý Ý ÿ Ÿ";
+            $paragraph = '<p>'.$standard.'</p>';
+        } else if ($modus == 2){
+            $unicode = "";
+                for ($i = 0; $i<10626; $i++){
+                    if($type == 'debug'){
+                    $unicode .= '&#'.$i.";"." [$i] |";
+                    } else if($type == 'default'){
+                    $unicode .= '&#'.$i.";"." ";
+                    };
+                }   
+            $paragraph = '<p>'.$unicode.'</p>';
+            }
+
+        return $paragraph;
+
+    }
 }
 
 
@@ -126,6 +146,14 @@ function ipsum_display_shortcode( $atts ){
     for ($i = 0; $i < $number; $i++){
         $output .= $generator->getParagraph();
     }
+
+    return $output;
+}
+
+add_shortcode('unicode', 'unicode_display_shortcode');
+function unicode_display_shortcode( $atts ){
+    $generator = new LoremIpsumTestgenerator();
+    $output = $generator->getSpecialCharset($atts['type'], $atts['modus']);
 
     return $output;
 }
