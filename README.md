@@ -26,5 +26,7 @@ Das Plugin nutzt die API von http://loripsum.net/ und ist für Testzwecke auf Te
         - long
         - verylong
 
-## Subheader
+## Shortcode ipsum
+
+[ipsum number="1"] generiert einen Paragraphen anhand einer vorgegebenen Liste aus Fach- und Füllwörtern.
 
