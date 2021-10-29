@@ -10,12 +10,12 @@ Author: Lukas Niebler
  * I Klasse und Methode zum generieren der Wörter und Sätze
  * II Shortcodes
  * */
- 
+
 class LoremIpsumTestgenerator {
     
-    function wortgenerierung() {
+    function getWords() {
 
-        $schlagwoerter = array(
+        $main = array(
             'Alice',
             'Schwester',
             'Bilder',
@@ -38,7 +38,7 @@ class LoremIpsumTestgenerator {
             'Miez',
         );
         
-        $fachwoerter = array(
+        $keywords = array(
             'Polymer',
             'Polysaccharid',
             'Lymphocyten',
@@ -50,7 +50,7 @@ class LoremIpsumTestgenerator {
             'Retikulum',
         );
 
-        $fuellwoerter = array(
+        $polyfill = array(
             'an',
             'sich',
             'zu',
@@ -65,22 +65,22 @@ class LoremIpsumTestgenerator {
             'ob',
         );
 
-            $woerter = array_merge($schlagwoerter, $fachwoerter, $fuellwoerter);
-            shuffle($woerter);
+            $words = array_merge($main, $keywords, $polyfill);
+            shuffle($words);
 
-            return $woerter;
+            return $words;
     }
 
-    function satzgenerierung() {
-        $woerter = $this->wortgenerierung();
-        $satz = '';
+    function getSentence() {
+        $words = $this->getWords();
+        $sentence = '';
 
-        if (count($woerter) > 0) {
+        if (count($words) > 0) {
             for ($i = 0; $i < 24; $i++) {
-                $satz .= $woerter[$i]." ";
+                $sentence .= $words[$i]." ";
             }
         }
-        return $satz;
+        return $sentence;
     }
 }
 
@@ -101,7 +101,7 @@ function lorem_display_shortcode( $atts ) {
 add_shortcode('ipsum', 'ipsum_display_shortcode');
 function ipsum_display_shortcode(){
     $generator = new LoremIpsumTestgenerator();
-    $output = $generator->satzgenerierung();
+    $output = $generator->getSentence();
 
     return $output;
 }
