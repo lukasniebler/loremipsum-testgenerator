@@ -6,6 +6,7 @@ Version: 1.0.0
 Author: Lukas Niebler
 */
 
+
 /** Inhaltsverzeichnis
  * I Klasse und Methode zum generieren der Wörter und Sätze
  * II Shortcodes
@@ -104,6 +105,7 @@ class LoremIpsumTestgenerator {
 
 //Shortcode lorem
 
+
 add_shortcode('lorem', 'lorem_display_shortcode');
 function lorem_display_shortcode( $atts ) {
     $paragraphs = $atts['number'];
@@ -112,7 +114,7 @@ function lorem_display_shortcode( $atts ) {
     $response = wp_remote_get( 'http://loripsum.net/api/'.$paragraphs.'/'.$length.'/'.$type );
     $body = wp_remote_retrieve_body( $response );
     return $body;
-};
+}
 
 add_shortcode('ipsum', 'ipsum_display_shortcode');
 function ipsum_display_shortcode( $atts ){
