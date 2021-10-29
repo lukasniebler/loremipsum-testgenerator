@@ -4,7 +4,7 @@ Wichtig:
 
 Das Plugin nutzt die API von http://loripsum.net/ und ist für Testzwecke auf Testinstanzen angedacht.
 
-Shortcodes:
+# Shortcodes
 
 [lorem number=" " type=" " length=" "]
     
@@ -25,3 +25,6 @@ Shortcodes:
         - medium
         - long
         - verylong
+
+## Subheader
+
