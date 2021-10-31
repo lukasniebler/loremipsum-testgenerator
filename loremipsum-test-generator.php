@@ -2,13 +2,15 @@
 /*
 Plugin Name: LoremIpsum Test Generator
 Description: Plugin to create sitecontent based on loripsum API and ImageContent from Unsplash
-Version: 1.0.0
+Version: 1.0.1
 Author: Lukas Niebler
 */
 
 
 /** Inhaltsverzeichnis
- * I Klasse und Methode zum generieren der Wörter und Sätze
+ * I PluginClass
+ *      I   List of words and word generation functions
+ *      II  Register settings and settingspage setup
  * II Shortcodes
  * */
 
@@ -121,12 +123,58 @@ class LoremIpsumTestgenerator {
     }
 
     public function field_callback( $arguments ) {
-        echo '<input name="our_first_field" id="our_first_field" type="text" value="' . get_option( 'our_first_field' ) . '" />';
-        register_setting ('lorem_ipsum_testgen', 'our_first_field');
+        $value = get_option( $arguments['uid'] ); // Get the current value, if there is one
+        if( ! $value ) { // If no value exists
+            $value = $arguments['default']; // Set to our default
+        }
+    
+        // Check which type of field we want
+        switch( $arguments['type'] ){
+            case 'text': // If it is a text field
+                printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />', $arguments['uid'], $arguments['type'], $arguments['placeholder'], $value );
+                break;
+        }
+    
+        // If there is help text
+        if( $helper = $arguments['helper'] ){
+            printf( '<span class="helper"> %s</span>', $helper ); // Show it
+        }
+    
+        // If there is supplemental text
+        if( $supplimental = $arguments['supplemental'] ){
+            printf( '<p class="description">%s</p>', $supplimental ); // Show it
+        }
     }
     
     public function setup_fields() {
-        add_settings_field( 'our_first_field', 'Unsplash API Token', array( $this, 'field_callback' ), 'lorem_ipsum_testgen', 'our_first_section' );
+        $fields = array(
+            array(
+                'uid' => 'our_first_field',
+                'label' => 'Access key',
+                'section' => 'our_first_section',
+                'type' => 'text',
+                'options' => false,
+                'placeholder' => 'Access key',
+                'helper' => 'Enter your Access key for Unsplash API ',
+                'supplemental' => '',
+                'default' => ''
+            ),
+            array(
+                'uid' => 'our_second_field',
+                'label' => 'Secret key',
+                'section' => 'our_first_section',
+                'type' => 'text',
+                'options' => false,
+                'placeholder' => 'Secret key',
+                'helper' => 'Enter your Secret key for Unsplash API.',
+                'supplemental' => '',
+                'default' => ''
+            ),
+        );
+        foreach( $fields as $field ){
+            add_settings_field( $field['uid'], $field['label'], array( $this, 'field_callback' ), 'lorem_ipsum_testgen', $field['section'], $field );
+            register_setting( 'lorem_ipsum_testgen', $field['uid'] );
+        }
     }
 
     //callback method for settings page
@@ -147,7 +195,7 @@ class LoremIpsumTestgenerator {
     public function section_callback( $arguments ) {
         switch( $arguments['id'] ){
             case 'our_first_section':
-                echo 'If you want to use the Unsplash API, please paste in your Unsplash API Token.';
+                echo "If you want to use the Unsplash API, please paste in your Unsplash API details. \n You can also use the Plugin without using the Unsplash API. \n Without your Unsplash API details the plugin will use 10 preset images out of the plugin-directory.";
                 
                 break;
             /*
@@ -188,8 +236,6 @@ class LoremIpsumTestgenerator {
 }
 
 new LoremIpsumTestgenerator();
-//Shortcode lorem
-
 
 add_shortcode('lorem', 'lorem_display_shortcode');
 function lorem_display_shortcode( $atts ) {
