@@ -146,7 +146,7 @@ class LoremIpsumTestgenerator {
         }
     }
     
-    public function setup_fields() {
+    public function get_fields() {
         $fields = array(
             array(
                 'uid' => 'unsplash_access_key',
@@ -171,6 +171,11 @@ class LoremIpsumTestgenerator {
                 'default' => ''
             ),
         );
+        return $fields;
+    }
+
+    public function setup_fields() {
+        $fields = $this->getFields();
         foreach( $fields as $field ){
             add_settings_field( $field['uid'], $field['label'], array( $this, 'field_callback' ), 'lorem_ipsum_testgen', $field['section'], $field );
             register_setting( 'lorem_ipsum_testgen', $field['uid'] );
@@ -233,6 +238,16 @@ class LoremIpsumTestgenerator {
     }
 
     
+
+    // Plugin uninstall
+    register_uninstall_hook(__FILE__, array( $this, 'unregister_hooks' ));
+
+    public function unregister_hooks() {
+        $fields = $this.getFields();
+        foreach( $fields as $field ){
+            unregister_setting( 'lorem_ipsum_testgen', $field['uid'] );
+        }
+    }
 }
 
 new LoremIpsumTestgenerator();
