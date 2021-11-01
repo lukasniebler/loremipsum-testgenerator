@@ -2,7 +2,7 @@
 /*
 Plugin Name: LoremIpsum Test Generator
 Description: Plugin to create sitecontent based on loripsum API and ImageContent from Unsplash
-Version: 1.0.1
+Version: 1.0.2
 Author: Lukas Niebler
 */
 
@@ -149,7 +149,7 @@ class LoremIpsumTestgenerator {
     public function setup_fields() {
         $fields = array(
             array(
-                'uid' => 'our_first_field',
+                'uid' => 'unsplash_access_key',
                 'label' => 'Access key',
                 'section' => 'our_first_section',
                 'type' => 'text',
@@ -160,7 +160,7 @@ class LoremIpsumTestgenerator {
                 'default' => ''
             ),
             array(
-                'uid' => 'our_second_field',
+                'uid' => 'unsplash_secret_key',
                 'label' => 'Secret key',
                 'section' => 'our_first_section',
                 'type' => 'text',
