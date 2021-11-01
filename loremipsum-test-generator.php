@@ -244,7 +244,7 @@ class LoremIpsumTestgenerator {
 
 
     public function unregister_hooks() {
-        $fields = $this.get_fields();
+        $fields = $this->get_fields();
         foreach( $fields as $field ){
             unregister_setting( 'lorem_ipsum_testgen', $field['uid'] );
             delete_option($field['uid']);
