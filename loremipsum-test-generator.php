@@ -18,6 +18,7 @@ Author: Lukas Niebler
 
 class LoremIpsumTestgenerator {
 
+    /* WORD AND SENTENCE GENERATOR */
     function getWords() {
 
         $main = array(
@@ -104,6 +105,8 @@ class LoremIpsumTestgenerator {
         return $output;
     }
 
+    /* UNICODE GENERATOR */
+
     function getSpecialCharset($type = 'default', $modus = '1') {
         if ($modus == 1){
             $standard = "— – ­ “ & ˆ ¡ ¦ ¨ ¯ ´ ¸ ¿ ˜ ‘ ’ ‚ “ ” „ ‹ › < > ± « » × ÷ ¢ £ ¤ ¥ § © ¬ ® ° µ ¶ · † ‡ ‰ € ¼ ½ ¾ ¹ ² ³ á Á â Â à À å Å ã Ã ä Ä ª æ Æ ç Ç ð Ð é É ê Ê è È ë Ë ƒ í Í î Î ì Ì ï Ï ñ Ñ ó Ó ô Ô ò Ò º ø Ø õ Õ ö Ö œ Œ š Š ß þ Þ ú Ú û Û ù Ù ü Ü ý Ý ÿ Ÿ";
@@ -123,6 +126,8 @@ class LoremIpsumTestgenerator {
         return $paragraph;
 
     }
+
+    /* SETTINGS */
 
     public function field_callback( $arguments ) {
         $value = get_option( $arguments['uid'] ); // Get the current value, if there is one
@@ -241,6 +246,8 @@ class LoremIpsumTestgenerator {
         register_uninstall_hook(__FILE__, array( $this, 'unregister_hooks' ));
     }
 
+    /* UNINSTALL */
+
     public function unregister_hooks() {
         $fields = $this->get_fields();
         foreach( $fields as $field ){
@@ -248,9 +255,43 @@ class LoremIpsumTestgenerator {
             delete_option($field['uid']);
         }
     }
+
+    /* IMAGE IMPLEMENTATION */
+
+    /** 1 Methode sollte auch ohne API abrufbar sein
+     *  2 Bilder aus dem Assetsfolder müssen eingebunden werden
+     *  3 API Zuziehen
+     *  FIN 
+     **/
+
+    public function get_image_names() {
+        $fileNames = [];
+        $imgDir = dirname(__FILE__) . "/assets/img";
+        //var_dump($imgDir); //Debug
+        
+        $dir = new DirectoryIterator($imgDir);
+        foreach ($dir as $fileinfo) {
+            if (!$fileinfo->isDot()) {
+                $fileNames [] = ($fileinfo->getFilename());
+            }
+        }
+        
+        return $fileNames;
+    }
+
 }
 
 new LoremIpsumTestgenerator();
+
+add_shortcode('debug', 'debug_display_shortcode');
+function debug_display_shortcode(){
+    $generator = new LoremIpsumTestgenerator();
+
+    $output = $generator->get_image_names();
+    var_dump($output);
+
+    return "I'm working";
+}
 
 add_shortcode('lorem', 'lorem_display_shortcode');
 function lorem_display_shortcode( $atts ) {
