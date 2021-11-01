@@ -11,6 +11,8 @@ Author: Lukas Niebler
  * I PluginClass
  *      I   List of words and word generation functions
  *      II  Register settings and settingspage setup
+ *      III Uninstall function
+ *      IV  Constructor
  * II Shortcodes
  * */
 
@@ -238,10 +240,6 @@ class LoremIpsumTestgenerator {
             // Plugin uninstall
         register_uninstall_hook(__FILE__, array( $this, 'unregister_hooks' ));
     }
-
-    
-
-
 
     public function unregister_hooks() {
         $fields = $this->get_fields();
