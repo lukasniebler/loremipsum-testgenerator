@@ -2,7 +2,7 @@
 /*
 Plugin Name: LoremIpsum Test Generator
 Description: Plugin to create sitecontent based on loripsum API and ImageContent from Unsplash
-Version: 1.0.2
+Version: 1.0.3
 Author: Lukas Niebler
 */
 
@@ -11,8 +11,9 @@ Author: Lukas Niebler
  * I PluginClass
  *      I   List of words and word generation functions
  *      II  Register settings and settingspage setup
- *      III Uninstall function
- *      IV  Constructor
+ *      III Constructor Method //Should be moved to I in the future.
+ *      IV  Uninstall function
+ *      V   Image Implementation
  * II Shortcodes
  * */
 
@@ -275,7 +276,7 @@ class LoremIpsumTestgenerator {
                 $fileNames [] = ($fileinfo->getFilename());
             }
         }
-        
+
         return $fileNames;
     }
 
