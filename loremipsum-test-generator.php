@@ -108,7 +108,7 @@ class LoremIpsumTestgenerator {
 
     /* UNICODE GENERATOR */
 
-    function getSpecialCharset($type = 'default', $modus = '1') {
+    function getSpecialCharset($type = 'default', $modus = '1') { //Debug
         if ($modus == 1){
             $standard = "— – ­ “ & ˆ ¡ ¦ ¨ ¯ ´ ¸ ¿ ˜ ‘ ’ ‚ “ ” „ ‹ › < > ± « » × ÷ ¢ £ ¤ ¥ § © ¬ ® ° µ ¶ · † ‡ ‰ € ¼ ½ ¾ ¹ ² ³ á Á â Â à À å Å ã Ã ä Ä ª æ Æ ç Ç ð Ð é É ê Ê è È ë Ë ƒ í Í î Î ì Ì ï Ï ñ Ñ ó Ó ô Ô ò Ò º ø Ø õ Õ ö Ö œ Œ š Š ß þ Þ ú Ú û Û ù Ù ü Ü ý Ý ÿ Ÿ";
             $paragraph = '<p>'.$standard.'</p>';
