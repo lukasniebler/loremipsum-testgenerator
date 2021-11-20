@@ -342,3 +342,12 @@ function smile_display_shortcode( $atts ){
 
     return $_image;
 }
+
+add_shortcode('smile2', 'smile2_display_shortcode');
+function smile2_display_shortcode( $atts ){
+    //$output = WP_PLUGIN_DIR . '/loremipsum-testgenerator/assets/img/christina-deravedisian-DR9y0E7ehVM-unsplash.jpg';
+    //$input = WP_PLUGIN_DIR;
+    $output = do_shortcode('[collapsibles][collapse title="ok"][smile][lorem][/collapse][/collapsibles]'); //refactor that hardcoded path
+    
+    return $output;
+}
