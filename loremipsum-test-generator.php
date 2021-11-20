@@ -325,3 +325,20 @@ function unicode_display_shortcode( $atts ){
 
     return $output;
 }
+
+add_shortcode('smile', 'smile_display_shortcode');
+function smile_display_shortcode( $atts ){
+    //$output = WP_PLUGIN_DIR . '/loremipsum-testgenerator/assets/img/christina-deravedisian-DR9y0E7ehVM-unsplash.jpg';
+    //$input = WP_PLUGIN_DIR;
+    $minA = 0;
+    $maxA = 7;
+    $surprise = rand($minA, $maxA);
+
+    $generator = new LoremIpsumTestgenerator();
+
+    $output2 = $generator->get_image_names();
+    $output = "/wp-content/plugins/loremipsum-testgenerator/assets/img/".$output2[$surprise]; //refactor that hardcoded path
+    $_image = '<img src="' . $output . '">';
+
+    return $_image;
+}
